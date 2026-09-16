@@ -24,13 +24,12 @@ Diseñar, implementar, automatizar y optimizar un flujo de trabajo ETL (Extract,
 | # | Fase | Estado |
 |---|------|--------|
 | 0 | Creación de estructura | ✅ |
-| 1 | Instalación y prueba de Apache NiFi | ⏳ |
-| 2 | Preparación de fuentes de datos (CSV + API + SQL) | ⏳ |
-| 3 | Diseño del flujo ETL en NiFi | ⏳ |
-| 4 | Automatización y optimización | ⏳ |
-| 5 | Ejecución, validación y capturas | ⏳ |
+| 1 | Instalación y prueba de Apache NiFi | ✅ |
+| 2 | Preparación de fuentes de datos (CSV + API + SQL) | ✅ |
+| 3 | Diseño del flujo ETL en NiFi | ✅ |
+| 4 | Automatización y optimización | ✅ |
+| 5 | Ejecución, validación y capturas | ✅ |
 | 6 | Informes y publicación en GitHub | ⏳ |
-
 ---
 
 ## 📦 Estructura del Proyecto
@@ -45,6 +44,25 @@ reto3-etl-avanzado/
 ├── reports/               # Informes finales
 └── presentation/          # Presentación final
 ```
+
+---
+
+## 📊 Resultado del Pipeline ETL
+
+El flujo ETL integra 3 fuentes heterogéneas y genera un **dataset final unificado**:
+
+| Fuente | Tipo | Descripción | Registros |
+|---|---|---|---|
+| **Ventas** | CSV | Dataset Online Retail (Kaggle) | 10.000 |
+| **Cripto** | API (CoinGecko) | Precios de Bitcoin, Ethereum, Cardano, Solana | 4 criptos |
+| **Clientes** | SQLite | Tabla `clientes` generada con Python | 2.000 |
+
+**Salida final:** `data/final/dataset_final.json` con las 3 fuentes unificadas.
+
+**Flujo NiFi:** 3 ramas en paralelo que confluyen en un `MergeContent` con `Binary Concatenation`:
+Ventas (CSV)   ─┐
+Cripto (API)   ─┼──→ MergeContent ──→ dataset_final.json
+Clientes (SQL) ─┘
 
 ---
 
